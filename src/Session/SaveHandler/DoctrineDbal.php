@@ -92,7 +92,7 @@ class DoctrineDbal extends \Zend\Session\SaveHandler\DbTableGateway
         );
 
         if ($this->find($id)) {
-            return $this->getConnection()->update(
+            return (bool)$this->getConnection()->update(
                 $this->getOptions()->getTableName(),
                 $data,
                 array(
