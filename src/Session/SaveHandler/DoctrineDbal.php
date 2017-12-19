@@ -69,7 +69,7 @@ class DoctrineDbal extends \Zend\Session\SaveHandler\DbTableGateway
     /**
      * {@inheritDoc}
      */
-    public function read($id)
+    public function read($id, $destroyExpired = true)
     {
         if ($row = $this->find($id)) {
             if ($row[$this->getOptions()->getModifiedColumn()] + $row[$this->getOptions()->getLifetimeColumn()] > time()) {
@@ -136,7 +136,7 @@ class DoctrineDbal extends \Zend\Session\SaveHandler\DbTableGateway
                     time()
             ));
 
-        return $queryBuilder->execute();
+        return (bool)$queryBuilder->execute();
     }
 
 }
