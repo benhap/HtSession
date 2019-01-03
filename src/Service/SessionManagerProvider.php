@@ -41,7 +41,13 @@ class SessionManagerProvider
         if ($this->getSessionOptions()->getConfigClass()) {
             $configClass = $this->getSessionOptions()->getConfigClass();
             $this->configObject = new $configClass;
-            $this->configObject->setOptions($this->getSessionOptions()->getConfigOptions());
+
+            $options = $this->getSessionOptions()->getConfigOptions();
+
+            $options['cookie_httponly'] = true;
+            $options['cookie_secure'] = true;
+
+            $this->configObject->setOptions($options);
         }
 
         return $this->configObject;
